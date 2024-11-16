@@ -11,14 +11,15 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text playerNameText;
+    public Text HighScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    //private int m_Points;
     
     private bool m_GameOver = false;
 
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,10 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+        // Load Current Player Name and High Score
+        playerNameText.text = "Player: " + ScoreManager.Instance.currentPlayerName;
+        HighScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + ": " + ScoreManager.Instance.highScorePlayerScore;
+
     }
 
     private void Update()
@@ -64,13 +69,18 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreManager.Instance.currentPlayerScore += point;
+        ScoreText.text = $"Score : {ScoreManager.Instance.currentPlayerScore}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if (ScoreManager.Instance.currentPlayerScore > ScoreManager.Instance.highScorePlayerScore) {
+            ScoreManager.Instance.SavePlayerData();
+            HighScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + ": " + ScoreManager.Instance.highScorePlayerScore;
+        }
+        ScoreManager.Instance.currentPlayerScore = 0;
     }
 }

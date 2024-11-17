@@ -39,8 +39,11 @@ public class MainManager : MonoBehaviour
         }
         // Load Current Player Name and High Score
         playerNameText.text = "Player: " + ScoreManager.Instance.currentPlayerName;
-        HighScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + ": " + ScoreManager.Instance.highScorePlayerScore;
-
+        if (ScoreManager.Instance.highScorePlayerScore > 0) {
+            HighScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + ": " + ScoreManager.Instance.highScorePlayerScore;
+        } else {
+            HighScoreText.text = "High Score: None";
+        }
     }
 
     private void Update()

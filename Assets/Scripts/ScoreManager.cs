@@ -46,18 +46,18 @@ public class ScoreManager : MonoBehaviour
         SaveData data = new SaveData();
         data.playerName = currentPlayerName;
         data.playerScore = currentPlayerScore;
-        
+
         highScorePlayerName = currentPlayerName;
         highScorePlayerScore = currentPlayerScore;
 
         string json = JsonUtility.ToJson(data);
     
-        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/highscore.json", json);
     }
 
     public void LoadPlayerData()
     {
-        string path = Application.persistentDataPath + "/savefile.json";
+        string path = Application.persistentDataPath + "/highscore.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);

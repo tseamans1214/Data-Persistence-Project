@@ -19,7 +19,11 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         ScoreManager.Instance.LoadPlayerData();
-        highScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + " : " + ScoreManager.Instance.highScorePlayerScore; 
+        if (ScoreManager.Instance.highScorePlayerScore > 0) {
+            highScoreText.text = "High Score: " + ScoreManager.Instance.highScorePlayerName + " : " + ScoreManager.Instance.highScorePlayerScore;
+        } else {
+            highScoreText.text = "High Score: None";
+        }
     }
 
     // Update is called once per frame
